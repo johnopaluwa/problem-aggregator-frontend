@@ -1,32 +1,20 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import {
-  ERROR,
-  GET_TOKEN,
-  LOADING,
-  REMOVE_TOKEN,
-  SAVE_TOKEN,
-} from "./TokenTypes";
+import { ProgressEnum, ReportProgress } from "../../global/ReportProgress";
+import { tokenDataInterface } from "./TokenInterface";
+import { ERROR, TOKEN_LOADED, TOKEN_REMOVED, TOKEN_SAVED } from "./TokenTypes";
 
-export interface tokenInterface {
-  userToken: string;
-}
-
-export const getToken = (token: tokenInterface) => ({
-  type: GET_TOKEN,
+export const tokenLoaded = (token: tokenDataInterface) => ({
+  type: TOKEN_LOADED,
   token,
 });
 
-export const saveToken = (token: string) => ({
-  type: SAVE_TOKEN,
+export const tokenSaved = (token: tokenDataInterface) => ({
+  type: TOKEN_SAVED,
   token,
 });
 
-export const removeToken = () => ({
-  type: REMOVE_TOKEN,
-});
-
-export const loading = () => ({
-  type: LOADING,
+export const tokenRemoved = () => ({
+  type: TOKEN_REMOVED,
 });
 
 export const error = (error: string) => ({
@@ -34,36 +22,45 @@ export const error = (error: string) => ({
   error,
 });
 
-// Effects
-export const getUserToken = () => (dispatch: any) => {
-  dispatch(loading());
-  AsyncStorage.getItem("userToken")
-    .then((data) => {
-      dispatch(getToken(JSON.parse(data)));
-    })
-    .catch((err) => {
-      dispatch(error(err.message || "ERROR"));
-    });
-};
+export const getUserToken =
+  (reportProgress: ReportProgress) => (dispatch: any) => {
+    reportProgress.state = ProgressEnum.loading;
+    AsyncStorage.getItem("userToken")
+      .then((data) => {
+        reportProgress.state = ProgressEnum.loaded;
+        dispatch(tokenLoaded(JSON.parse(data)));
+      })
+      .catch((err) => {
+        reportProgress.state = ProgressEnum.failed;
+        dispatch(error(err.message || "ERROR"));
+      });
+  };
 
-export const saveUserToken = (data: tokenInterface) => (dispatch: any) => {
-  dispatch(loading());
-  AsyncStorage.setItem("userToken", JSON.stringify(data))
-    .then((_data) => {
-      dispatch(saveToken("token saved"));
-    })
-    .catch((err) => {
-      dispatch(error(err.message || "ERROR"));
-    });
-};
+export const saveUserToken =
+  (data: tokenDataInterface, reportProgress: ReportProgress) =>
+  (dispatch: any) => {
+    reportProgress.state = ProgressEnum.loading;
+    AsyncStorage.setItem("userToken", JSON.stringify(data))
+      .then((_) => {
+        reportProgress.state = ProgressEnum.loaded;
+        dispatch(tokenSaved(data));
+      })
+      .catch((err: Error) => {
+        reportProgress.state = ProgressEnum.failed;
+        dispatch(error(err.message || "ERROR"));
+      });
+  };
 
-export const removeUserToken = () => (dispatch: any) => {
-  dispatch(loading());
-  AsyncStorage.removeItem("userToken")
-    .then((_data) => {
-      dispatch(removeToken());
-    })
-    .catch((err) => {
-      dispatch(error(err.message || "ERROR"));
-    });
-};
+export const removeUserToken =
+  (reportProgress: ReportProgress) => (dispatch: any) => {
+    reportProgress.state = ProgressEnum.loading;
+    AsyncStorage.removeItem("userToken")
+      .then((_) => {
+        reportProgress.state = ProgressEnum.loaded;
+        dispatch(tokenRemoved());
+      })
+      .catch((err) => {
+        reportProgress.state = ProgressEnum.failed;
+        dispatch(error(err.message || "ERROR"));
+      });
+  };

@@ -1,40 +1,22 @@
-import React, { useState, useEffect } from "react";
-import {
-  MainStackNavigator,
-  ProfileStackNavigator,
-  CliqStackNavigator,
-  ActivityStackNavigator,
-  LocaleStackNavigator,
-} from "./StackNavigators";
-import {
-  ActiveHomeIcon,
-  InactiveHomeIcon,
-  ActiveCLIQIcon,
-  InactiveCLIQIcon,
-  ActiveProfileIcon,
-  InactiveProfileIcon,
-  ActiveActivityIcon,
-  InactivActivityIcon,
-  ActiveLocaleIcon,
-  InactiveLocaleIcon,
-} from "../assets/svg/TabIcons";
-import { Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, { useState } from "react";
+import { Dimensions, View } from "react-native";
 import { connect } from "react-redux";
+import { HomeIcon } from '../../assets/svg/TabIcons';
+import {
+  MainStackNavigator
+} from "./StackNavigators";
+
 
 const Tab = createBottomTabNavigator();
 const { height } = Dimensions.get("window");
 
-interface Props {
-  tabView: boolean;
-}
 
-const BottomTabNavigator = ({ tabView }: Props) => {
+
+const BottomTabNavigator = () => {
   const [tabViewState, setTabViewState] = useState(true);
 
-  useEffect(() => {
-    setTabViewState(tabView);
-  }, [tabView]);
+
 
   return (
     <Tab.Navigator
@@ -47,59 +29,23 @@ const BottomTabNavigator = ({ tabView }: Props) => {
         name="Home"
         component={MainStackNavigator}
         options={{
-          tabBarVisible: tabViewState,
-          tabBarIcon: ({ focused }) =>
-            focused ? <ActiveHomeIcon /> : <InactiveHomeIcon />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Cliq"
-        component={CliqStackNavigator}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? <ActiveCLIQIcon /> : <InactiveCLIQIcon />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Activity"
-        component={ActivityStackNavigator}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? <ActiveActivityIcon /> : <InactivActivityIcon />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Locale"
-        component={LocaleStackNavigator}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? <ActiveLocaleIcon /> : <InactiveLocaleIcon />,
-        }}
-      />
-
-      <Tab.Screen
-        name="User"
-        component={ProfileStackNavigator}
-        options={{
-          // tabBarVisible: false,
-          tabBarIcon: ({ focused }) =>
-            focused ? <ActiveProfileIcon /> : <InactiveProfileIcon />,
+          tabBarVisible: true,
+          tabBarIcon: ({ focused }) => {
+            const color = focused ? "#002060" : "#0000004d";
+            return (
+              <View style={{ position: "relative" }}>
+                <View style={{ alignItems: "center" }}>
+                  <HomeIcon color={color} />
+                </View>
+              </View>
+            );
+          },
         }}
       />
     </Tab.Navigator>
-    // </Stack.Navigator>
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  tabView: state.tabView,
-});
 
-// const mapDispatchToProps = (dispatch: any) => ({
-//   showTabView: () => dispatch(showTabView()),
-// });
 
-export default connect(mapStateToProps)(BottomTabNavigator);
+export default connect()(BottomTabNavigator);

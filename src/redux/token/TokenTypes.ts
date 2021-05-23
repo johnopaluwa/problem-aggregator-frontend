@@ -1,5 +1,5 @@
-export const GET_TOKEN = "GET_TOKEN";
-export const SAVE_TOKEN = "SAVE_TOKEN";
-export const REMOVE_TOKEN = "REMOVE_TOKEN";
-export const LOADING = "LOADING";
+export const TOKEN_LOADED = "TOKEN_LOADED";
+export const TOKEN_SAVED = "TOKEN_SAVED";
+export const TOKEN_REMOVED = "TOKEN_REMOVED";
+export const PROGRESS = "PROGRESS";
 export const ERROR = "ERROR";

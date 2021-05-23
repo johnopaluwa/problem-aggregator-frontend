@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import tokenReducer from "./token/TokenReducers";
 
 const rootReducer = combineReducers({
-  token: tokenReducer,
+  tokenReducerState: tokenReducer,
 });
 
 export default rootReducer;
