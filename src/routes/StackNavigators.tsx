@@ -2,9 +2,7 @@ import {
   CardStyleInterpolators, createStackNavigator
 } from "@react-navigation/stack";
 import React from "react";
-import {
-  Home
-} from "../screens";
+import { Problem } from "../screens";
 import SplashScreen from "../screens/SplashScreen";
 
 const Stack = createStackNavigator();
@@ -14,7 +12,7 @@ const transition = {
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 };
 
-export const MainStackNavigator = () => {
+export const ProblemStackNavigator = () => {
   return (
     <Stack.Navigator
       //@ts-ignore
@@ -24,9 +22,9 @@ export const MainStackNavigator = () => {
         headerBackTitleVisible: false,
         headerTintColor: "#17282F",
       }}
-      initialRouteName="Home"
+      initialRouteName="Problem"
     >
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Problem" component={Problem} />
 
     </Stack.Navigator>
   );
@@ -34,7 +32,7 @@ export const MainStackNavigator = () => {
 
 
 
-export const AuthStackNavigator = () => {
+export const WantStackNavigator = () => {
   return (
     <Stack.Navigator
       //@ts-ignore
@@ -44,9 +42,26 @@ export const AuthStackNavigator = () => {
         headerBackTitleVisible: false,
         headerTintColor: "#17282F",
       }}
-      initialRouteName="SplashScreen"
+      initialRouteName="Want"
     >
-      <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="Want" component={SplashScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export const CreateStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      //@ts-ignore
+      screenOptions={{
+        headerShown: false,
+        ...transition,
+        headerBackTitleVisible: false,
+        headerTintColor: "#17282F",
+      }}
+      initialRouteName="Create"
+    >
+      <Stack.Screen name="Create" component={SplashScreen} />
     </Stack.Navigator>
   );
 };

@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 
 
 
-function Home() {
+function Problem() {
   return (<View></View>);
 }
 
 
 
 
-export default connect()(Home);
+export default connect()(Problem);

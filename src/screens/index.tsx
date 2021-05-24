@@ -1,4 +1,4 @@
-import Home from "./home/Home";
+import Problem from './problem/Problem';
 
-export { Home };
+export { Problem };
 

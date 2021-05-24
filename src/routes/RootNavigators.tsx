@@ -4,14 +4,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { ProgressEnum, ReportProgress } from '../global/ReportProgress';
-import { getUserToken } from "../redux/token";
-import { tokenDataInterface, tokenReducerInterface } from '../redux/token/TokenInterface';
+import { getProblemsByPage } from '../redux/problems/ProblemActions';
+import { problemDataInterface, problemReducerInterface } from '../redux/problems/ProblemInterface';
 import BottomTabNavigator from "./BottomTabNavigator";
-import { AuthStackNavigator } from './StackNavigators';
 
 interface RootNavigatorProps {
-  getUserToken:(reportProgress: ReportProgress)=> any;
-  tokenReducerState: tokenReducerInterface;
+  getProblemsByPage:(reportProgress: ReportProgress)=> any;
+  problemsReducerState:problemReducerInterface
 }
 
 const RootStack = createStackNavigator();
@@ -24,32 +23,35 @@ const reportProgress = new ReportProgress();
 
 
 const RootNavigator = ({
-  getUserToken,
-  tokenReducerState,
+  getProblemsByPage,
+  problemsReducerState,
 }: RootNavigatorProps) => {
-  const [token, setToken] = useState<tokenDataInterface | null>(null);
   const [progress, setProgress] = useState(ProgressEnum.none);
 
+  const [problems, setProblems] = useState<problemDataInterface[] | null>(null);
+
   useEffect(() => {
-    getUserToken(reportProgress);
+    getProblemsByPage(reportProgress);
   }, []);
 
   useEffect(() => {
-    setToken(tokenReducerState.token);
+    setProblems(problemsReducerState.problems);
     setProgress(reportProgress.state);
-  }, [tokenReducerState]);
+  }, [ problemsReducerState]);
 
-  let displayNavigator;
+  let displayNavigator= (
+    <RootStack.Screen name="App" component={BottomTabNavigator} />
+  );
 
-  if (token && token.value) {
-    displayNavigator = (
-      <RootStack.Screen name="App" component={BottomTabNavigator} />
-    );
-  } else {
-    displayNavigator = (
-      <RootStack.Screen name="Auth" component={AuthStackNavigator} />
-    );
-  }
+  // if (!problems) {
+  //   displayNavigator = (
+  //     <RootStack.Screen name="App" component={BottomTabNavigator} />
+  //   );
+  // } else {
+  //   displayNavigator = (
+  //     <RootStack.Screen name="Auth" component={AuthStackNavigator} />
+  //   );
+  // }
 
   return (
     //@ts-ignore
@@ -60,11 +62,11 @@ const RootNavigator = ({
 };
 
 const mapStateToProps = (state: any) => ({
-  tokenReducerState: state.tokenReducerState,
+  problemsReducerState: state.problemsReducerState
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getUserToken: (reportProgress: ReportProgress) => dispatch(getUserToken(reportProgress)),
+  getProblemsByPage: (reportProgress: ReportProgress) => dispatch(getProblemsByPage(0,reportProgress)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootNavigator);
