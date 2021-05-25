@@ -17,10 +17,13 @@ export const ProblemStackNavigator = () => {
     <Stack.Navigator
       //@ts-ignore
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
         ...transition,
         headerBackTitleVisible: false,
         headerTintColor: "#17282F",
+      }, 
+      {
+        cardStyle:{backgroundColor:"#E5E8EE"}
       }}
       initialRouteName="Problem"
     >

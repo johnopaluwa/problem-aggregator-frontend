@@ -1,5 +1,3 @@
-import randomIcon from '@iconify/icons-el/random';
-import { Icon } from '@iconify/react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
@@ -31,7 +29,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarVisible: true,
           tabBarIcon: ({ focused }) => {
-            const color = focused ? "#002060" : "#0000004d";
+            const color = focused ? "#3FBAC2" : "#4D606E";
             return (
               <View style={{ position: "relative" }}>
                 <View style={{ alignItems: "center" }}>
@@ -52,11 +50,11 @@ const BottomTabNavigator = () => {
               options={{
                 tabBarVisible: true,
                 tabBarIcon: ({ focused }) => {
-                  const color = focused ? "#002060" : "#0000004d";
+                  const color = focused ? "#3FBAC2" : "#4D606E";
                   return (
                     <View style={{ position: "relative" }}>
                       <View style={{ alignItems: "center" }}>
-                        <Icon icon={randomIcon} color ={color} style={{ fontSize: '20px'}} />
+                        <HomeIcon color={color} />
                         <Text style={[styles.iconLabel, { color }]}>
                           Want
                         </Text>
@@ -73,7 +71,7 @@ const BottomTabNavigator = () => {
               options={{
                 tabBarVisible: true,
                 tabBarIcon: ({ focused }) => {
-                  const color = focused ? "#002060" : "#0000004d";
+                  const color = focused ? "#3FBAC2" : "#4D606E";
                   return (
                     <View style={{ position: "relative" }}>
                       <View style={{ alignItems: "center" }}>
