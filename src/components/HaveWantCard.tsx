@@ -6,6 +6,7 @@ import { ButtonLink } from "./ButtonLink";
 
 interface cardInterface {
   onTypePress(): void;
+  onCardPress(): void;
   text?: string;
   count?: number;
   type?: string;
@@ -72,7 +73,7 @@ function LowerPart(props: lowerPartInterface) {
 
 export function HaveWantCard(props: cardInterface) {
   return (
-    <TouchableOpacity style={{ ...styles.card }} onPress={() => console.log(2)}>
+    <TouchableOpacity style={{ ...styles.card }} onPress={props.onCardPress}>
       <Text style={styles.card__text}>{props.text}</Text>
       <View style={styles.divider}></View>
       <LowerPart
@@ -80,7 +81,7 @@ export function HaveWantCard(props: cardInterface) {
         type={props.type}
         count={props.count}
         isAlSoMyWantOrHave={props.isAlSoMyWantOrHave}
-        onTypePress={() => props.onTypePress}
+        onTypePress={props.onTypePress}
       />
     </TouchableOpacity>
   );

@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { HaveWantCard } from "../../components/HaveWantCard";
 
-function Problem() {
+function Problem({ navigation }: any) {
   const cards = [];
   for (let index = 0; index < 10; index++) {
     cards.push(
@@ -13,6 +13,7 @@ function Problem() {
         count={1000}
         isAlSoMyWantOrHave={index % 3 === 0 ? true : false}
         onTypePress={() => console.log("1")}
+        onCardPress={() => navigation.navigate("ProblemChat")}
       />
     );
   }

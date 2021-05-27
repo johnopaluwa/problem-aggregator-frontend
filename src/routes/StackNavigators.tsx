@@ -1,8 +1,10 @@
 import {
-  CardStyleInterpolators, createStackNavigator
+  CardStyleInterpolators,
+  createStackNavigator,
 } from "@react-navigation/stack";
 import React from "react";
 import { Problem } from "../screens";
+import ProblemChat from "../screens/problem/ProblemChat";
 import SplashScreen from "../screens/SplashScreen";
 
 const Stack = createStackNavigator();
@@ -21,19 +23,19 @@ export const ProblemStackNavigator = () => {
         ...transition,
         headerBackTitleVisible: false,
         headerTintColor: "#17282F",
-      }, 
-      {
-        cardStyle:{backgroundColor:"#E5E8EE"}
+        cardStyle: { backgroundColor: "#E5E8EE" },
       }}
       initialRouteName="Problem"
     >
       <Stack.Screen name="Problem" component={Problem} />
-
+      <Stack.Screen
+        options={{ cardStyle: { backgroundColor: "white" } }}
+        name="ProblemChat"
+        component={ProblemChat}
+      />
     </Stack.Navigator>
   );
 };
-
-
 
 export const WantStackNavigator = () => {
   return (
