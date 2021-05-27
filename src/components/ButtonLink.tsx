@@ -20,23 +20,6 @@ export function ButtonLink(props: propsInterface) {
 }
 
 const styles = StyleSheet.create({
-  btn: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    backgroundColor: "#002060",
-    borderRadius: 5,
-    width: "100%",
-    elevation: 2,
-    marginBottom: 20,
-  },
-  btnTxt: {
-    fontFamily: "bold",
-    fontSize: 16,
-    lineHeight: 18,
-    color: "#fff",
-    paddingVertical: 16,
-  },
   onboardBtn: {
     fontFamily: "bold",
     fontSize: 16,
