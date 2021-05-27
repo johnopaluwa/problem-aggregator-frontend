@@ -1,16 +1,20 @@
 import {
-  CardStyleInterpolators, createStackNavigator
+  CardStyleInterpolators,
+  createStackNavigator,
 } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { ProgressEnum, ReportProgress } from '../global/ReportProgress';
-import { getProblemsByPage } from '../redux/problems/ProblemActions';
-import { problemDataInterface, problemReducerInterface } from '../redux/problems/ProblemInterface';
+import { ProgressEnum, ReportProgress } from "../global/ReportProgress";
+import { getProblemsByPage } from "../redux/problems/ProblemActions";
+import {
+  problemDataInterface,
+  problemReducerInterface,
+} from "../redux/problems/ProblemInterface";
 import BottomTabNavigator from "./BottomTabNavigator";
 
 interface RootNavigatorProps {
-  getProblemsByPage:(reportProgress: ReportProgress)=> any;
-  problemsReducerState:problemReducerInterface
+  getProblemsByPage: (reportProgress: ReportProgress) => any;
+  problemsReducerState: problemReducerInterface;
 }
 
 const RootStack = createStackNavigator();
@@ -20,7 +24,6 @@ const transition = {
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 };
 const reportProgress = new ReportProgress();
-
 
 const RootNavigator = ({
   getProblemsByPage,
@@ -37,9 +40,9 @@ const RootNavigator = ({
   useEffect(() => {
     setProblems(problemsReducerState.problems);
     setProgress(reportProgress.state);
-  }, [ problemsReducerState]);
+  }, [problemsReducerState]);
 
-  let displayNavigator= (
+  let displayNavigator = (
     <RootStack.Screen name="App" component={BottomTabNavigator} />
   );
 
@@ -62,11 +65,12 @@ const RootNavigator = ({
 };
 
 const mapStateToProps = (state: any) => ({
-  problemsReducerState: state.problemsReducerState
+  problemsReducerState: state.problemsReducerState,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getProblemsByPage: (reportProgress: ReportProgress) => dispatch(getProblemsByPage(0,reportProgress)),
+  getProblemsByPage: (reportProgress: ReportProgress) =>
+    dispatch(getProblemsByPage(0, reportProgress)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootNavigator);
