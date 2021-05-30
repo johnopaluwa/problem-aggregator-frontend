@@ -2,6 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { AddIcon, Arrow } from "../../../assets/svg/OtherIcons";
+import { ButtonLink } from "../../components/ButtonLink";
 
 const { height, width } = Dimensions.get("window");
 
@@ -40,13 +41,13 @@ function Create({ navigation }: any) {
         }}
       />
 
-      <AddIcon
-        fill="#3FBAC2"
-        stroke="#3FBAC2"
-        style={{
+      <ButtonLink
+        onPress={() => console.log("1")}
+        icon={<AddIcon fill="#3FBAC2" stroke="#3FBAC2" />}
+        containerStyles={{
           position: "absolute",
           right: width * 0.06,
-          top: height * 0.75,
+          top: height * 0.7,
         }}
       />
     </View>
