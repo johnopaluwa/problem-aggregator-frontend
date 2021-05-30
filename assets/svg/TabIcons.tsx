@@ -4,8 +4,8 @@ import Svg, { Path } from "react-native-svg";
 export function ProblemIcon(props: any) {
   return (
     <Svg
-      width="17"
-      height="20"
+      width={props.size ? props.size : 24}
+      height={props.size ? props.size : 24}
       viewBox="0 0 17 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,8 @@ export function ProblemIcon(props: any) {
 export function WantIcon(props: any) {
   return (
     <Svg
-      width="20"
-      height="19"
+      width={props.size ? props.size : 24}
+      height={props.size ? props.size : 24}
       viewBox="0 0 20 19"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -40,8 +40,8 @@ export function WantIcon(props: any) {
 export function CreateIcon(props: any) {
   return (
     <Svg
-      width="20"
-      height="20"
+      width={props.size ? props.size : 24}
+      height={props.size ? props.size : 24}
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

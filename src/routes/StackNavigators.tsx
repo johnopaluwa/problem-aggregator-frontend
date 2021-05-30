@@ -4,8 +4,8 @@ import {
 } from "@react-navigation/stack";
 import React from "react";
 import { Problem } from "../screens";
+import Create from "../screens/create/Create";
 import ProblemChat from "../screens/problem/ProblemChat";
-import SplashScreen from "../screens/SplashScreen";
 
 const Stack = createStackNavigator();
 const transition = {
@@ -37,36 +37,19 @@ export const ProblemStackNavigator = () => {
   );
 };
 
-export const WantStackNavigator = () => {
-  return (
-    <Stack.Navigator
-      //@ts-ignore
-      screenOptions={{
-        headerShown: false,
-        ...transition,
-        headerBackTitleVisible: false,
-        headerTintColor: "#17282F",
-      }}
-      initialRouteName="Want"
-    >
-      <Stack.Screen name="Want" component={SplashScreen} />
-    </Stack.Navigator>
-  );
-};
-
 export const CreateStackNavigator = () => {
   return (
     <Stack.Navigator
       //@ts-ignore
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
         ...transition,
         headerBackTitleVisible: false,
         headerTintColor: "#17282F",
       }}
       initialRouteName="Create"
     >
-      <Stack.Screen name="Create" component={SplashScreen} />
+      <Stack.Screen name="Create" component={Create} />
     </Stack.Navigator>
   );
 };

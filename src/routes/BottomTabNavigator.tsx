@@ -2,12 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
-import { CreateIcon, ProblemIcon, WantIcon } from "../../assets/svg/TabIcons";
-import {
-  CreateStackNavigator,
-  ProblemStackNavigator,
-  WantStackNavigator,
-} from "./StackNavigators";
+import { CreateIcon, ProblemIcon } from "../../assets/svg/TabIcons";
+import { CreateStackNavigator, ProblemStackNavigator } from "./StackNavigators";
 
 const Tab = createBottomTabNavigator();
 const { height } = Dimensions.get("window");
@@ -34,25 +30,6 @@ const BottomTabNavigator = () => {
                 <View style={{ alignItems: "center" }}>
                   <ProblemIcon color={color} />
                   <Text style={[styles.iconLabel, { color }]}>Problem</Text>
-                </View>
-              </View>
-            );
-          },
-        }}
-      />
-
-      <Tab.Screen
-        name="Want"
-        component={WantStackNavigator}
-        options={{
-          tabBarVisible: true,
-          tabBarIcon: ({ focused }) => {
-            const color = focused ? "#3FBAC2" : "#4D606E";
-            return (
-              <View style={{ position: "relative" }}>
-                <View style={{ alignItems: "center" }}>
-                  <WantIcon color={color} />
-                  <Text style={[styles.iconLabel, { color }]}>Want</Text>
                 </View>
               </View>
             );
