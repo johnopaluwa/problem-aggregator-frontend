@@ -9,10 +9,12 @@ function Problem({ navigation }: any) {
     cards.push(
       <HaveWantCard
         text="Cant find business ideas and the shhd uduud fuud siis diuid suzus dudu shhs"
-        type="have"
-        count={1000}
-        isAlSoMyWantOrHave={index % 3 === 0 ? true : false}
-        onTypePress={() => console.log("1")}
+        likeCount={10}
+        isLiked={index % 7 === 0 ? true : false}
+        commentCount={5}
+        isCommented={index % 9 === 0 ? true : false}
+        onLikePressed={() => console.log("1")}
+        onCommentPressed={() => navigation.navigate("ProblemChat")}
         onCardPress={() => navigation.navigate("ProblemChat")}
       />
     );

@@ -1,24 +1,84 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { StarIcon } from "../../assets/svg/OtherIcons";
+import { ChatIcon, StarIcon } from "../../assets/svg/OtherIcons";
 import { nFormatter } from "../helpers/formatter";
 import { ButtonLink } from "./ButtonLink";
 
 interface cardInterface {
-  onTypePress(): void;
+  onLikePressed(): void;
+  onCommentPressed(): void;
   onCardPress(): void;
   text?: string;
-  count?: number;
-  type?: string;
-  isAlSoMyWantOrHave?: boolean;
+  likeCount?: number;
+  isLiked?: boolean;
+  commentCount?: number;
+  isCommented?: boolean;
 }
 
 interface lowerPartInterface {
-  onTypePress(): void;
+  onLikePressed(): void;
+  onCommentPressed(): void;
   text?: string;
+  likeCount?: number;
+  isLiked?: boolean;
+  commentCount?: number;
+  isCommented?: boolean;
+}
+
+interface reUsableButton {
+  onLikePressed(): void;
+  onCommentPressed(): void;
   count?: number;
-  type?: string;
-  isAlSoMyWantOrHave?: boolean;
+  buttonType?: string;
+  isLiked?: boolean;
+  isCommented?: boolean;
+}
+
+function ReUsableButton(props: reUsableButton) {
+  return (
+    <ButtonLink
+      nameAfterIcon={nFormatter(props.count ? props.count : 0, 1)}
+      onPress={props.onCommentPressed}
+      icon={
+        props.buttonType === "chat" ? (
+          <ChatIcon
+            size={22}
+            color="#4D606E"
+            fill={
+              !!props.isCommented && props.isCommented === true
+                ? "#3FBAC2"
+                : "white"
+            }
+            stroke={
+              !!props.isCommented && props.isLiked === true
+                ? "#3FBAC2"
+                : "black"
+            }
+          />
+        ) : (
+          <StarIcon
+            size={22}
+            color="#4D606E"
+            fill={
+              !!props.isLiked && props.isLiked === true ? "#3FBAC2" : "white"
+            }
+            stroke={
+              !!props.isLiked && props.isLiked === true ? "#3FBAC2" : "black"
+            }
+          />
+        )
+      }
+      style={{
+        fontFamily: "regular",
+        fontStyle: "normal",
+        fontWeight: "bold",
+        fontSize: 13,
+        color:
+          !!props.isLiked && props.isLiked === true ? "#3FBAC2" : "#4D606E",
+      }}
+      containerStyles={{ flexDirection: "row", alignItems: "center" }}
+    />
+  );
 }
 
 function LowerPart(props: lowerPartInterface) {
@@ -34,39 +94,22 @@ function LowerPart(props: lowerPartInterface) {
         paddingRight: 9,
       }}
     >
-      <Text style={styles.card__text_left}>
-        {nFormatter(props.count ? props.count : 0, 1) + " " + props.type}
-      </Text>
-      <View style={{ display: "flex", flexDirection: "row" }}>
-        <ButtonLink
-          name={"I" + " " + props.type}
-          onPress={props.onTypePress}
-          icon={
-            <StarIcon
-              size={22}
-              color="#4D606E"
-              fill={
-                !!props.isAlSoMyWantOrHave && props.isAlSoMyWantOrHave === true
-                  ? "#3FBAC2"
-                  : "white"
-              }
-              stroke={
-                !!props.isAlSoMyWantOrHave && props.isAlSoMyWantOrHave === true
-                  ? "#3FBAC2"
-                  : "black"
-              }
-            />
-          }
-          style={{
-            ...styles.card__text_right__text,
-            color:
-              !!props.isAlSoMyWantOrHave && props.isAlSoMyWantOrHave === true
-                ? "#3FBAC2"
-                : "#4D606E",
-          }}
-          containerStyles={styles.buttonContainer}
-        />
-      </View>
+      <ReUsableButton
+        buttonType="like"
+        count={props.likeCount}
+        isLiked={props.isLiked}
+        isCommented={props.isCommented}
+        onLikePressed={props.onLikePressed}
+        onCommentPressed={props.onCommentPressed}
+      />
+      <ReUsableButton
+        buttonType="chat"
+        count={props.commentCount}
+        isLiked={props.isLiked}
+        isCommented={props.isCommented}
+        onLikePressed={props.onLikePressed}
+        onCommentPressed={props.onCommentPressed}
+      />
     </View>
   );
 }
@@ -78,10 +121,12 @@ export function HaveWantCard(props: cardInterface) {
       <View style={styles.divider}></View>
       <LowerPart
         text={props.text}
-        type={props.type}
-        count={props.count}
-        isAlSoMyWantOrHave={props.isAlSoMyWantOrHave}
-        onTypePress={props.onTypePress}
+        likeCount={props.likeCount}
+        commentCount={props.commentCount}
+        isLiked={props.isLiked}
+        isCommented={props.isCommented}
+        onLikePressed={props.onLikePressed}
+        onCommentPressed={props.onCommentPressed}
       />
     </TouchableOpacity>
   );
@@ -115,24 +160,5 @@ const styles = StyleSheet.create({
     marginLeft: 9,
     marginTop: 10,
     marginBottom: 10,
-  },
-  card__text_left: {
-    fontFamily: "regular",
-    fontStyle: "normal",
-    fontWeight: "bold",
-    fontSize: 13,
-    color: "#4D606E",
-  },
-  card__text_right__text: {
-    fontFamily: "regular",
-    fontStyle: "normal",
-    fontWeight: "bold",
-    fontSize: 13,
-    marginLeft: 4,
-  },
-
-  buttonContainer: {
-    flexDirection: "row-reverse",
-    alignItems: "center",
   },
 });
