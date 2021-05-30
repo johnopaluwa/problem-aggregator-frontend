@@ -31,7 +31,7 @@ function Create({ navigation }: any) {
           fontWeight: "bold",
         }}
       >
-        Write your problem or want
+        Write your problem
       </Text>
       <Arrow
         style={{
@@ -42,7 +42,7 @@ function Create({ navigation }: any) {
       />
 
       <ButtonLink
-        onPress={() => console.log("1")}
+        onPress={() => navigation.navigate("CreateTextArea")}
         icon={<AddIcon fill="#3FBAC2" stroke="#3FBAC2" />}
         containerStyles={{
           position: "absolute",

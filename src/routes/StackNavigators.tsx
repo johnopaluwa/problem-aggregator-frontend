@@ -5,6 +5,7 @@ import {
 import React from "react";
 import { Problem } from "../screens";
 import Create from "../screens/create/Create";
+import CreateTextArea from "../screens/create/CreateTextArea";
 import ProblemChat from "../screens/problem/ProblemChat";
 
 const Stack = createStackNavigator();
@@ -50,6 +51,11 @@ export const CreateStackNavigator = () => {
       initialRouteName="Create"
     >
       <Stack.Screen name="Create" component={Create} />
+      <Stack.Screen
+        options={{ headerTitle: "" }}
+        name="CreateTextArea"
+        component={CreateTextArea}
+      />
     </Stack.Navigator>
   );
 };
